@@ -20,29 +20,29 @@
 
     <div class="qcol rightcol">
       <p>Configurations</p>
-      <form >
+      <form id="config">
       	<div class='configs' style="overflow:scroll; height:600px;">
           <div class="form-group w-75">
             <label class='question_title'>Assessment name:</label>
-            <input class="form-control" type="text" placeholder="Enter assessment name" size=36>
+            <input class="form-control" type="text" placeholder="Enter assessment name" name="title" size=36>
           </div>
           <div class="form-row">
             <div class="col-md-5 mb-3">
               <label class='question_title'>Type:</label>
-              <select class="form-control">
+              <select class="form-control" name="type">
                 <option>Exam</option>
                 <option>Homework</option>
               </select>
             </div>
             <div class="col-md-5 mb-3">
               <label class='question_title'>Credit:</label>
-              <input class="form-control" type="text" placeholder="Enter integer" name="assessment_credit" size=4>
+              <input class="form-control" type="text" placeholder="Enter integer" name="credit" size=4>
             </div>
           </div>
           <div class="access_forms">
             <div class="form-group w-50">
               <label class='question_title'>Allow access to:</label>
-              <select class="form-control">
+              <select class="form-control" name="role">
                 <option>Student</option>
                 <option>TA</option>
                 <option>Instructor</option>
@@ -51,19 +51,19 @@
             <label class='question_title'>Start date:</label>
             <div class="form-row">
               <div class="col-md-5 mb-3">
-                <input class="form-control" type="date" min="2021-01-01" max="2100-12-31">
+                <input class="form-control" type="date" min="2021-01-01" max="2100-12-31" name="startDate">
               </div>
               <div class="col-md-5 mb-3">
-                <input class="form-control" type="time" min="00:00" max="23:59">
+                <input class="form-control" type="time" min="00:00" max="23:59" name="startTime">
               </div>
             </div>
             <label class='question_title'>End date:</label>
             <div class="form-row">
               <div class="col-md-5 mb-3">
-                <input class="form-control" type="date" min="2021-03-02" max="2100-12-31">
+                <input class="form-control" type="date" min="2021-03-02" max="2100-12-31" name="endDate">
               </div>
               <div class="col-md-5 mb-3">
-                <input class="form-control" type="time" min="00:00" max="23:59">
+                <input class="form-control" type="time" min="00:00" max="23:59" name="endTime">
               </div>
             </div>
           </div>
@@ -88,8 +88,18 @@
           </script>
         </div><br>
 
-        <button class="btn btn-primary" type="button">Save</button>
-        <button class="btn btn-primary" type="button">Export</button>
+        <button class="btn btn-primary" type="button" id="save">Save</button>
+        <button class="btn btn-primary" type="button" id="export">Export</button>
+        <script>
+        $(document).ready(function(){
+          // trigger export
+          $('#export').click(function(){
+            var jsonData = {};
+            var formData = $("#config").serializeArray();
+            console.log(formData);
+          });
+        });
+        </script>
       </form>
     </div>
 
@@ -132,9 +142,9 @@
         closetag.type = "button";
         closetag.appendChild(spantag);
         tag.append(closetag);
-        $(this).append(tag);    
+        $(this).append(tag);
       }
     });
-    </script>    
+    </script>
   </body>
 </html>
