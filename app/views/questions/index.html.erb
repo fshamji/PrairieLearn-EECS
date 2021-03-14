@@ -97,6 +97,10 @@
             var jsonData = {};
             var formData = $("#config").serializeArray();
             console.log(formData);
+            $.each(formData, function() {
+                jsonData[this.name].push(this.value)
+            });
+            console.log(jsonData)
           });
         });
         </script>
