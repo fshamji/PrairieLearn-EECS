@@ -90,6 +90,7 @@
 
         <button class="btn btn-primary" type="button" id="save">Save</button>
         <button class="btn btn-primary" type="button" id="export">Export</button>
+        <a id="downloadAnchorElem" style="display:none"></a>
         <script>
         $(document).ready(function(){
           // trigger export
@@ -101,6 +102,11 @@
             $.each(formData, function() {
               jsonData[this.name] = this.value
             });
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonData));
+            var dlAnchorElem = document.getElementById('downloadAnchorElem');
+            dlAnchorElem.setAttribute("href",     dataStr     );
+            dlAnchorElem.setAttribute("download", "infoAssessment.json");
+            dlAnchorElem.click();
             console.log(jsonData)
           });
         });
@@ -152,10 +158,10 @@
         closetag.appendChild(spantag);
         tag.append(closetag);
         $(this).append(tag);
-        if ('questions' in jsonData){
-          jsonData.questions.push($(ui.helper).html())
+        if ('zones' in jsonData){
+          jsonData.zones.push({questions:[{id:$(ui.helper).html(), points:1}]})
         } else {
-          jsonData.questions = [$(ui.helper).html()]
+          jsonData.zones = [{questions:[{id:$(ui.helper).html(), points:1}]}]
         }
         console.log(jsonData)
       }
