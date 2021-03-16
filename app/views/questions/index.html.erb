@@ -94,11 +94,12 @@
         $(document).ready(function(){
           // trigger export
           $('#export').click(function(){
-            var jsonData = {};
+            if (typeof window.jsonData == "undefined"){
+              window.jsonData = {};
+            }
             var formData = $("#config").serializeArray();
-            console.log(formData);
             $.each(formData, function() {
-                jsonData[this.name].push(this.value)
+              jsonData[this.name] = this.value
             });
             console.log(jsonData)
           });
@@ -129,6 +130,10 @@
       {helper: "clone"}
     );
 
+    if (typeof window.jsonData == "undefined"){
+      jsonData = {};
+    }
+
     $(".mcontainer").droppable({
       accept: ".draggable-question",
       drop: function(event,ui){
@@ -147,6 +152,12 @@
         closetag.appendChild(spantag);
         tag.append(closetag);
         $(this).append(tag);
+        if ('questions' in jsonData){
+          jsonData.questions.push($(ui.helper).html())
+        } else {
+          jsonData.questions = [$(ui.helper).html()]
+        }
+        console.log(jsonData)
       }
     });
     </script>
